@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const ENV = process.env.npm_lifecycle_event || '';
 const isProd = ENV === 'build';
@@ -251,7 +252,11 @@ const makeWebpackConfig = (entry, env = {}) => {
       }),
       new ExtractTextPlugin({
         filename: '[name].[hash].css',
-      }));
+      }),
+      new CopyWebpackPlugin([{
+        from: root('node_modules', '@ionic', 'core', 'dist', 'ionic'),
+        to: 'ionic',
+      }]));
   } else {
     webpackConfig.plugins.push(
       new webpack.ContextReplacementPlugin(
