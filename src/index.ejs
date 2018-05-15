@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Angular Ionic</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="theme-color" content="#4e8ef7">
+    <meta name="version" content="<%= htmlWebpackPlugin.options.version %>">
+    <% if (htmlWebpackPlugin.options.isProd) { %>
+      <link href="vendors.<%= compilation.hash %>.css" rel="stylesheet">
+      <link href="app.<%= compilation.hash %>.css" rel="stylesheet">
+    <% } %>
+  </head>
+  <body>
+    <ion-app></ion-app>
+    <script type="text/javascript" src="polyfills.<%= compilation.hash %>.js"></script>
+    <% if (htmlWebpackPlugin.options.target === 'cordova') { %>
+      <script src="cordova.js"></script>
+    <% } %>
+    <script type="text/javascript" src="vendors.<%= compilation.hash %>.js"></script>
+    <script type="text/javascript" src="app.<%= compilation.hash %>.js"></script>
+  </body>
+</html>
