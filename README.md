@@ -6,9 +6,9 @@ Includes Sass support
 
 ## Motivation
 
-As ionic is no more in angular, you will have to choose between [Ionic CLI](http://ionicframework.com/docs/cli/) and [Angular CLI](https://cli.angular.io/) to create and manage ionic projects with angular. I'm not sure that'll be easy ! So this projects reasons are
+As ionic is no more in angular, and if you choose to use new version with it, it seems pretty sure that it will use [Angular CLI](https://cli.angular.io/). So this projects reasons are
 
-* Isolate the project from possible breaking changes in the cli.
+* Isolate the project from possible breaking changes between the cli and Ionic (I really don't like clis).
 * Build as a web app or a Cordova mobile app, with slightly different settings. E.g. `cordova.js` should not be included when deploying to a web server.
 * Encapsulate styles in components the Angular way, i.e. using `styleUrls`, instead of requiring Sass rules to match the component `selector`.
 * Follow the Angular [style guide](https://angular.io/styleguide#!#02-02) convention for file naming.
