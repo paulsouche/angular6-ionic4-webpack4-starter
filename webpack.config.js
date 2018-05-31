@@ -224,7 +224,7 @@ const makeWebpackConfig = (entry, env = {}) => {
       port,
       stats: 'errors-only',
       contentBase: [
-        root('node_modules', '@ionic', 'core', 'dist'),
+        root('node_modules', '@ionic', 'core', 'dist', 'ionic'),
       ],
       proxy: [
         {
@@ -254,8 +254,8 @@ const makeWebpackConfig = (entry, env = {}) => {
         filename: '[name].[hash].css',
       }),
       new CopyWebpackPlugin([{
-        from: root('node_modules', '@ionic', 'core', 'dist', 'ionic'),
-        to: 'ionic',
+        from: root('node_modules', '@ionic', 'core', 'dist', 'ionic', 'svg'),
+        to: 'svg',
       }]));
   } else {
     webpackConfig.plugins.push(
