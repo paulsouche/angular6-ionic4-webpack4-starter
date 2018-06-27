@@ -6,10 +6,12 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { HomeModalComponent } from '../components/home-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeModalComponent,
     AboutPage,
     ContactPage,
     HomePage,
@@ -22,6 +24,7 @@ import { TabsPage } from '../pages/tabs/tabs';
   bootstrap: [AppComponent],
   entryComponents: [
     AppComponent,
+    HomeModalComponent,
     AboutPage,
     ContactPage,
     HomePage,
