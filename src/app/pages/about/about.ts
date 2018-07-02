@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'about-page',
   template: `
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="myColor2">
         <ion-title>
           About
         </ion-title>
