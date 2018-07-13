@@ -4,6 +4,14 @@ import { HomeModalComponent } from '../../components/home-modal.component';
 
 @Component({
   selector: 'home-page',
+  styles: [
+    `
+      :host {
+        --ion-toolbar-background-color: red;
+        --ion-toolbar-text-color: white;
+      }
+    `
+  ],
   template: `
     <ion-header>
       <ion-toolbar color="secondary">

@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
   selector: 'contact-page',
   template: `
     <ion-header>
-      <ion-toolbar color="myColor">
+      <!-- seems like color is not working in alpha.10 -->
+      <ion-toolbar color="dark">
         <ion-title>
           Contact
         </ion-title>

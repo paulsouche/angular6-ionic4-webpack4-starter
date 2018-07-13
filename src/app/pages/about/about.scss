@@ -1,0 +1,6 @@
+@import "../../../style/variables";
+
+:host {
+  --ion-toolbar-background-color: #{ion-color(myColor2, base)};
+  --ion-toolbar-text-color: #{ion-color(myColor2, contrast)};
+}

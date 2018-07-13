@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'about-page',
+  styleUrls: ['./about.scss'],
   template: `
     <ion-header>
       <ion-toolbar color="myColor2">
@@ -12,6 +13,13 @@ import { Component } from '@angular/core';
     </ion-header>
 
     <ion-content padding>
+      <ion-button color="secondary">
+        Secondary
+      </ion-button>
+
+      <ion-button color="danger" fill="outline">
+        Danger
+      </ion-button>
 
     </ion-content>
   `,
