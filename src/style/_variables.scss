@@ -1,3 +1,63 @@
+@import "~@ionic/core/dist/collection/themes/ionic.theme.default.scss";
+
+@function ion-extend-colors($parent, $children...) {
+  $result: map-merge($parent, ());
+  @each $child in $children {
+    @each $key, $value in $child {
+      @if type-of($value) == map {
+        $obj: ();
+        @if (map-has-key($result, $key)) {
+          $obj: map-get($result, $key);
+          @if (type-of($obj) == color) {
+            $obj: (base: $obj);
+          }
+        }
+        $result: map-merge($result, ($key: ion-extend-colors($obj, $value)));
+      } @else {
+        $result: map-merge($result, ($key: $value));
+      }
+    }
+  }
+  @return $result;
+}
+
 $toolbar-background-color: cyan;
 $toolbar-md-background-color: cyan;
 $toolbar-ios-background-color: cyan;
+
+$aem-colors:(
+  secondary: (
+    base:             red,
+    contrast:         #fff,
+    shade:            get-color-shade(red),
+    tint:             get-color-tint(red)
+  ),
+  myColor: (
+    base:             blue,
+    contrast:         #fff,
+    shade:            get-color-shade(blue),
+    tint:             get-color-tint(blue)
+  ),
+  myColor2: (
+    base:             green,
+    contrast:         #fff,
+    shade:            get-color-shade(green),
+    tint:             get-color-tint(green)
+  ),
+  // WARNING ! cannot use built-in colors here
+  // rebeccapurple: (
+  //   base:     rebeccapurple,
+  //   contrast: #fff,
+  //   shade:    get-color-shade(rebeccapurple),
+  //   tint:     get-color-tint(rebeccapurple)
+  // ),
+  // WARNING ! kebab case too BTW
+  // alice-blue: (
+  //   base:     aliceblue,
+  //   contrast: #fff,
+  //   shade:    get-color-shade(aliceblue),
+  //   tint:     get-color-tint(aliceblue)
+  // ),
+);
+
+$colors: ion-extend-colors($colors, $aem-colors);
