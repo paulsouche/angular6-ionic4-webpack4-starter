@@ -18,7 +18,6 @@
     "clean": "rimraf www coverage platforms plugins",
     "lint": "tslint \"**/*.ts\" \"**/*.js\" -e \"node_modules/**\" && stylelint \"**/*.scss\"",
     "start": "webpack-dev-server -d --open",
-    "start-device": "webpack-dev-server -d --open",
     "test": "jest --coverage",
     "test-watch": "jest --watch"
   },
@@ -49,7 +48,7 @@
     "ionicons": "^4.0.0",
     "rxjs": "^6.0.0",
     "ts-helpers": "^1.0.0",
-    "whatwg-fetch": "^2.0.0",
+    "whatwg-fetch": "^3.0.0",
     "zone.js": "^0.8.0"
   },
   "devDependencies": {
@@ -64,13 +63,13 @@
     "autoprefixer": "*",
     "copy-webpack-plugin": "*",
     "css-loader": "*",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "*",
     "html-loader": "*",
     "html-webpack-plugin": "*",
     "jest": "*",
     "jest-localstorage-mock": "*",
     "jest-preset-angular": "*",
+    "mini-css-extract-plugin": "*",
     "ng-router-loader": "*",
     "node-sass": "*",
     "null-loader": "*",
@@ -81,15 +80,13 @@
     "style-loader": "*",
     "stylelint": "*",
     "stylelint-config-standard": "*",
-    "svg-sprite-loader": "*",
     "ts-loader": "*",
     "tslint": "*",
     "tslint-loader": "*",
-    "typescript": "~2.7.0",
+    "typescript": "^2.0.0",
     "url-loader": "*",
     "webpack": "*",
     "webpack-cli": "*",
-    "webpack-dev-server": "*",
-    "write-file-webpack-plugin": "*"
+    "webpack-dev-server": "*"
   }
 }

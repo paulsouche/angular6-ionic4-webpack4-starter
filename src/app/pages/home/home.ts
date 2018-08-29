@@ -10,7 +10,7 @@ import { HomeModalComponent } from '../../components/home-modal.component';
         --ion-toolbar-background-color: red;
         --ion-toolbar-text-color: white;
       }
-    `
+    `,
   ],
   template: `
     <ion-header>
@@ -67,7 +67,7 @@ export class HomePage {
 
   public async ngOnInit() {
     const loading = await this.loadingCtrl.create({
-      content: 'Loading...',
+      message: 'Loading...',
       duration: 1000,
     });
 
@@ -81,22 +81,22 @@ export class HomePage {
         {
           text: 'Option 1',
           handler: () => {
-            this.option = 'Option 1'
+            this.option = 'Option 1';
           },
         },
         {
           text: 'Option 2',
           handler: () => {
-            this.option = 'Option 2'
+            this.option = 'Option 2';
           },
         },
         {
           text: 'Cancel',
-          role: 'cancel'
+          role: 'cancel',
         },
       ],
-      enableBackdropDismiss: true,
-    })
+      backdropDismiss: true,
+    });
     return sheet.present();
   }
 
@@ -108,17 +108,19 @@ export class HomePage {
       },
     });
 
-    modal.onDidDismiss((detail) => {
-      this.result = detail.data.baz;
-    });
+    modal.onDidDismiss()
+      .then((detail) => {
+        this.result = detail.data.baz;
+      });
 
     return modal.present();
   }
 
   public async showAlert() {
     const alert = await this.alertCtrl.create({
+      header: 'Alert',
       buttons: ['OK'],
-      enableBackdropDismiss: false,
+      backdropDismiss: false,
       message: 'My alert',
     });
 

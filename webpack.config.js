@@ -2,25 +2,20 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-const WriteFilePlugin = require('write-file-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const ENV = process.env.npm_lifecycle_event || '';
 const isProd = ENV === 'build';
-const isDevice = ENV === 'start-device';
 const port = parseInt(process.env.PORT, 10) || 3000;
 const host = process.env.HOST || 'localhost';
 const proxy = process.env.PROXY || 'http://localhost:8000';
 const secure = proxy.startsWith('https');
 const endPoint = process.env.ENDPOINT || '';
-const demoEndPoint = process.env.DEMO_ENDPOINT || '';
-const wsEndPoint = process.env.WSENDPOINT || 'ws://localhost:8000';
 const version = process.env.FULL_VERSION || require('./package.json').version;
-const demoWsEndPoint = process.env.DEMO_WSENDPOINT || '';
-const mode = isProd ? 'prod' : 'dev';
-const target = (isProd || isDevice) ? 'cordova' : 'web';
+const mode = isProd ? 'production' : 'development';
+const target = (isProd) ? 'cordova' : 'web';
 
 // Helper functions
 function root(args) {
@@ -43,11 +38,11 @@ const postcssOptions = {
   ],
 };
 
-const makeWebpackConfig = (entry, env = {}) => {
+const makeWebpackConfig = (entry, { env } = {}) => {
   const fontsQuery = '&limit=65000&publicPath=./&name=fonts/[name].[hash].[ext]?';
 
   const webpackConfig = {
-    mode: isProd ? 'production' : 'development',
+    mode,
     entry,
     output: {
       path: root('www'),
@@ -123,6 +118,21 @@ const makeWebpackConfig = (entry, env = {}) => {
           ],
         },
         {
+          test: /\.css$/,
+          exclude: root('src', 'app'),
+          use: isProd
+            ? [
+              { loader: MiniCssExtractPlugin.loader },
+              { loader: 'css-loader' },
+              { loader: 'postcss-loader', options: postcssOptions },
+            ]
+            : [
+              { loader: 'style-loader' },
+              { loader: 'css-loader' },
+              { loader: 'postcss-loader', options: postcssOptions },
+            ],
+        },
+        {
           test: /\.scss$/,
           include: root('src', 'app'),
           use: [
@@ -132,34 +142,15 @@ const makeWebpackConfig = (entry, env = {}) => {
           ],
         },
         {
-          test: /\.css$/,
-          exclude: root('src', 'app'),
-          use: isProd
-            ? ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: [
-                { loader: 'css-loader' },
-                { loader: 'postcss-loader', options: postcssOptions },
-              ],
-            })
-            : [
-              { loader: 'style-loader' },
-              { loader: 'css-loader' },
-              { loader: 'postcss-loader', options: postcssOptions },
-            ],
-        },
-        {
           test: /\.scss$/,
           exclude: root('src', 'app'),
           use: isProd
-            ? ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: [
-                { loader: 'css-loader' },
-                { loader: 'postcss-loader', options: postcssOptions },
-                { loader: 'sass-loader' },
-              ],
-            })
+            ? [
+              { loader: MiniCssExtractPlugin.loader },
+              { loader: 'css-loader' },
+              { loader: 'postcss-loader', options: postcssOptions },
+              { loader: 'sass-loader' },
+            ]
             : [
               { loader: 'style-loader' },
               { loader: 'css-loader' },
@@ -167,22 +158,12 @@ const makeWebpackConfig = (entry, env = {}) => {
               { loader: 'sass-loader' },
             ],
         },
-        {
-          test: /\.svg$/,
-          include: root('src', 'icons'),
-          loader: 'svg-sprite-loader',
-          options: {
-            spriteModule: 'svg-sprite-loader/runtime/browser-sprite.build',
-          },
-        },
       ],
     },
     resolve: {
       extensions: ['.ts', '.js', '.html', '.scss', '.svg', '.md'],
     },
     plugins: [
-      new webpack.ContextReplacementPlugin(
-        /ionic-angular/, root('src')),
       new webpack.DefinePlugin({
         // Environment helpers
         build: JSON.stringify({
@@ -192,12 +173,9 @@ const makeWebpackConfig = (entry, env = {}) => {
             target,
             endPoints: {
               endPoint,
-              demoEndPoint,
-              wsEndPoint,
-              demoWsEndPoint,
             },
           },
-          ...env
+          ...env,
         }),
       }),
       new HtmlWebpackPlugin({
@@ -250,7 +228,7 @@ const makeWebpackConfig = (entry, env = {}) => {
         tsConfigPath: root('tsconfig-aot.json'),
         entryModule: root('src', 'app', 'modules', 'app.module#AppModule'),
       }),
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: '[name].[hash].css',
       }),
       new CopyWebpackPlugin([{
@@ -262,10 +240,6 @@ const makeWebpackConfig = (entry, env = {}) => {
       new webpack.ContextReplacementPlugin(
         /(.+)?angular(\\|\/)core(.+)?/,
         root('src')));
-  }
-
-  if (isDevice) {
-    webpackConfig.plugins.push(new WriteFilePlugin());
   }
 
   return webpackConfig;

@@ -1,0 +1,26 @@
+@function ion-extend-colors($parent, $children...) {
+  $result: map-merge($parent, ());
+
+  @each $child in $children {
+    @each $key, $value in $child {
+      @if type-of($value) == map {
+        $obj: ();
+
+        @if (map-has-key($result, $key)) {
+          $obj: map-get($result, $key);
+
+          @if (type-of($obj) == color) {
+            $obj: (base: $obj);
+          }
+        }
+        $result: map-merge($result, ($key: ion-extend-colors($obj, $value)));
+      }
+
+      @else {
+        $result: map-merge($result, ($key: $value));
+      }
+    }
+  }
+
+  @return $result;
+}

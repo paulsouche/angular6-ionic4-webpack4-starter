@@ -12,7 +12,6 @@
     <meta name="version" content="<%= htmlWebpackPlugin.options.version %>">
     <% if (htmlWebpackPlugin.options.isProd) { %>
       <link href="vendors.<%= compilation.hash %>.css" rel="stylesheet">
-      <link href="app.<%= compilation.hash %>.css" rel="stylesheet">
     <% } %>
   </head>
   <body>

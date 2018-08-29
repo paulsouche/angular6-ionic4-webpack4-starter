@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
         background: white;
         padding: 15px;
       }
-    `
+    `,
   ],
   template: `
     <div class="home-modal">
@@ -24,14 +24,13 @@ import { Component } from '@angular/core';
         Close
       </ion-button>
     </div>
-  `
+  `,
 })
 export class HomeModalComponent {
   public modal: HTMLIonModalElement;
   public foo: string;
 
   public close() {
-    this.modal.dataset
     this.modal.dismiss({ baz: 'quux' });
   }
 }
