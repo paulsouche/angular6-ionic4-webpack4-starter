@@ -1,6 +1,102 @@
-@import "./style/variables";
+@import './style/variables';
+@import '~ionicons/dist/scss/ionicons';
+@import '~@ionic/core/dist/collection/css/normalize';
+@import '~@ionic/core/dist/collection/css/padding';
+@import '~@ionic/core/dist/collection/css/structure';
+@import '~@ionic/core/dist/collection/css/text-alignment';
+@import '~@ionic/core/dist/collection/css/text-transformation';
+@import '~@ionic/core/dist/collection/css/typography';
 
-$ionicons-font-path: "~ionicons/dist/fonts";
-@import "~ionicons/dist/scss/ionicons";
+// This is the core.scss part to keep
+// See https://github.com/ionic-team/ionic/issues/15485
 
-@import "~@ionic/core/dist/collection/css/ionic";
+@each $color-name, $value in $colors {
+  .ion-color-#{$color-name} {
+    @include generate-color($color-name);
+  }
+}
+
+// Ionic Font Family
+// --------------------------------------------------
+
+html.ios {
+  --ion-default-font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
+}
+
+html.md {
+  --ion-default-font: "Roboto", "Helvetica Neue", sans-serif;
+}
+
+html {
+  --ion-font-family: var(--ion-default-font);
+  --ion-safe-area-top: var(--ion-statusbar-padding);
+}
+
+*::selection {
+  background: var(--ion-color-shade, rgba(0, 0, 0, 0.3));
+}
+
+// Page Container Structure
+// --------------------------------------------------
+
+.ion-page {
+  @include position(0, 0, 0, 0);
+
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-between;
+  contain: layout size style;
+  overflow: hidden;
+  z-index: $z-index-page-container;
+}
+
+ion-route,
+ion-route-redirect,
+ion-router,
+ion-animation-controller,
+ion-nav-controller,
+ion-menu-controller,
+ion-action-sheet-controller,
+ion-alert-controller,
+ion-loading-controller,
+ion-modal-controller,
+ion-picker-controller,
+ion-popover-controller,
+ion-toast-controller,
+.ion-page-hidden,
+[hidden] {
+  /* stylelint-disable-next-line declaration-no-important */
+  display: none !important;
+}
+
+.ion-page-invisible {
+  opacity: 0;
+}
+
+// Ionic Safe Margins
+// --------------------------------------------------
+
+html.plt-ios.plt-hybrid,
+html.plt-ios.plt-pwa {
+  --ion-statusbar-padding: 20px;
+}
+
+// TODO: remove once Safari 11.2 dies
+@supports (padding-top: constant(safe-area-inset-top)) {
+  html {
+    --ion-safe-area-top: constant(safe-area-inset-top);
+    --ion-safe-area-bottom: constant(safe-area-inset-bottom);
+    --ion-safe-area-left: constant(safe-area-inset-left);
+    --ion-safe-area-right: constant(safe-area-inset-right);
+  }
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  html {
+    --ion-safe-area-top: env(safe-area-inset-top);
+    --ion-safe-area-bottom: env(safe-area-inset-bottom);
+    --ion-safe-area-left: env(safe-area-inset-left);
+    --ion-safe-area-right: env(safe-area-inset-right);
+  }
+}

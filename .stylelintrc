@@ -1,0 +1,32 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "indentation": 2,
+    "declaration-colon-newline-after": null,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "function",
+          "include",
+          "return",
+          "extend",
+          "mixin",
+          "each",
+          "else",
+          "for",
+          "if"
+        ]
+      }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": [
+          "/^ion-/",
+          "/deep/"
+        ]
+      }
+    ]
+  }
+}
