@@ -61,7 +61,6 @@
     "@types/webpack-env": "*",
     "angular2-template-loader": "*",
     "autoprefixer": "*",
-    "copy-webpack-plugin": "*",
     "css-loader": "*",
     "file-loader": "*",
     "html-loader": "*",

@@ -4,7 +4,6 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const ENV = process.env.npm_lifecycle_event || '';
 const isProd = ENV === 'build';
@@ -13,9 +12,9 @@ const host = process.env.HOST || 'localhost';
 const proxy = process.env.PROXY || 'http://localhost:8000';
 const secure = proxy.startsWith('https');
 const endPoint = process.env.ENDPOINT || '';
-const version = process.env.FULL_VERSION || require('./package.json').version;
+const version = process.env.VERSION || require('./package.json').version;
 const mode = isProd ? 'production' : 'development';
-const target = (isProd) ? 'cordova' : 'web';
+const target = isProd ? 'cordova' : 'web';
 
 // Helper functions
 function root(args) {
@@ -201,9 +200,6 @@ const makeWebpackConfig = (entry, { env } = {}) => {
       host,
       port,
       stats: 'errors-only',
-      contentBase: [
-        root('node_modules', '@ionic', 'core', 'dist', 'ionic'),
-      ],
       proxy: [
         {
           context: ['**/api/**', '/publicapi/**'],
@@ -230,11 +226,7 @@ const makeWebpackConfig = (entry, { env } = {}) => {
       }),
       new MiniCssExtractPlugin({
         filename: '[name].[hash].css',
-      }),
-      new CopyWebpackPlugin([{
-        from: root('node_modules', '@ionic', 'core', 'dist', 'ionic', 'svg'),
-        to: 'svg',
-      }]));
+      }));
   } else {
     webpackConfig.plugins.push(
       new webpack.ContextReplacementPlugin(
