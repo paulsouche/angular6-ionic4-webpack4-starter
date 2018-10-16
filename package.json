@@ -61,7 +61,6 @@
     "@types/webpack-env": "*",
     "angular2-template-loader": "*",
     "autoprefixer": "*",
-    "copy-webpack-plugin": "*",
     "css-loader": "*",
     "file-loader": "*",
     "html-loader": "*",
@@ -81,6 +80,7 @@
     "stylelint": "*",
     "stylelint-config-standard": "*",
     "ts-loader": "*",
+    "tslib": "*",
     "tslint": "*",
     "tslint-loader": "*",
     "typescript": "^2.0.0",
@@ -88,5 +88,27 @@
     "webpack": "*",
     "webpack-cli": "*",
     "webpack-dev-server": "*"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      },
+      "__TRANSFORM_HTML__": true
+    },
+    "moduleNameMapper": {
+      "\\.(svg|png)$": "<rootDir>/test/file-mock.js",
+      "^@ionic/core/loader": "<rootDir>/node_modules/@ionic/core/dist/esm/es5/ionic.define.js",
+      "^@ionic/core/dist/ionic/svg": "<rootDir>/test/svg-mock.js"
+    },
+    "preset": "jest-preset-angular",
+    "setupFiles": [
+      "whatwg-fetch",
+      "jest-localstorage-mock"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/setup-jest.ts",
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ionic)"
+    ]
   }
 }
