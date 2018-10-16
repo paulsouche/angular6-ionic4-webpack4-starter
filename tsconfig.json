@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "target": "es2015",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -9,6 +10,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": false,
+    "importHelpers": true,
     "noEmitHelpers": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
